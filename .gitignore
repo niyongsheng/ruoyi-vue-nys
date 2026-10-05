@@ -1,0 +1,47 @@
+# 依赖
+node_modules
+
+# 构建产物
+dist
+
+# 日志
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 缓存 / 工具产物
+.eslintcache
+.vite-inspect
+*.tsbuildinfo
+
+# 本地环境变量覆盖
+*.local
+
+# 编辑器 / IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 系统
+.DS_Store
+
+# 包管理器
+package-lock.json
+yarn.lock
+
+# 生成文件（不入库；dev/build/typecheck 会自动重建，也可手动 pnpm gen:types / pnpm gen:icons）
+src/typings/auto-imports.d.ts
+src/typings/components.d.ts
+src/plugins/iconify.ts

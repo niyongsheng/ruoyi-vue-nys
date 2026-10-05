@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "lib": ["DOM", "ESNext"],
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./*"],
+      // vue-cropper 自身的 .ts 源码无法通过类型检查，用本地 shim 覆盖
+      "vue-cropper": ["./src/typings/shims/vue-cropper.d.ts"]
+    },
+    "resolveJsonModule": true,
+    "types": ["vite/client", "node", "unplugin-icons/types/vue", "element-plus/global"],
+    // RuoYi 侧保留 .js（utils/api/components），允许被 TS 引用但不做类型检查
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue", "./src/**/*.js"],
+  "exclude": ["node_modules", "dist"]
+}
