@@ -1,0 +1,45 @@
+@import './reset.css';
+@import './nprogress.css';
+@import './transition.css';
+
+html,
+body,
+#app {
+  height: 100%;
+  font-size: 14px;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* 标题排版基线（原 RuoYi 的 .h1~.h6/h1~h6 组；类选择器部分已删，且 uno 已 blocklist 同名类） */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+
+/* 布局内容区滚动条（原 scrollbar.scss mixin 的唯一使用点，展开为平铺规则） */
+#__SCROLL_EL_ID__ {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+}
+#__SCROLL_EL_ID__::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+#__SCROLL_EL_ID__::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 7px;
+}
+#__SCROLL_EL_ID__::-webkit-scrollbar-track-piece {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+}

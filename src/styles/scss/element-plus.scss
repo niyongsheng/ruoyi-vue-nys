@@ -1,0 +1,274 @@
+$radius: 6px;
+
+html:root,
+html.dark:root {
+  @each $color in (primary, success, warning, info) {
+    --el-color-#{$color}: rgb(var(--#{$color}-color));
+    --el-color-#{$color}-dark-2: rgb(var(--#{$color}-600-color));
+    --el-color-#{$color}-light-3: rgb(var(--#{$color}-400-color));
+    --el-color-#{$color}-light-5: rgb(var(--#{$color}-300-color));
+    --el-color-#{$color}-light-7: rgb(var(--#{$color}-200-color));
+    --el-color-#{$color}-light-8: rgb(var(--#{$color}-100-color));
+    --el-color-#{$color}-light-9: rgb(var(--#{$color}-color) / 0.1);
+  }
+
+  /* danger/error 是 EP 的两组变量，都指向主题 error 色 */
+  --el-color-danger: rgb(var(--error-color));
+  --el-color-danger-dark-2: rgb(var(--error-600-color));
+  --el-color-danger-light-3: rgb(var(--error-400-color));
+  --el-color-danger-light-5: rgb(var(--error-300-color));
+  --el-color-danger-light-7: rgb(var(--error-200-color));
+  --el-color-danger-light-8: rgb(var(--error-100-color));
+  --el-color-danger-light-9: rgb(var(--error-color) / 0.1);
+
+  --el-color-error: rgb(var(--error-color));
+  --el-color-error-dark-2: rgb(var(--error-600-color));
+  --el-color-error-light-3: rgb(var(--error-400-color));
+  --el-color-error-light-5: rgb(var(--error-300-color));
+  --el-color-error-light-7: rgb(var(--error-200-color));
+  --el-color-error-light-8: rgb(var(--error-100-color));
+  --el-color-error-light-9: rgb(var(--error-color) / 0.1);
+
+  /* 菜单项高 48px（子项 42px） */
+  --el-menu-item-height: 48px;
+  --el-menu-item-hover-fill: rgba(0, 0, 0, 0.05);
+}
+html.dark:root,
+.sider-inverted {
+  --el-menu-item-hover-fill: rgba(255, 255, 255, 0.1);
+}
+
+/* 反色容器菜单文字固定浅色；勿改回锚 .bg-inverted（UnoCSS 工具类，改名会静默断契约） */
+.sider-inverted {
+  .el-menu {
+    --el-menu-bg-color: transparent;
+    --el-menu-text-color: #e5eaf3;
+  }
+}
+
+:focus-visible {
+  outline: 0;
+}
+
+/* 弹出层宽度：横向 120px（RuoYi 版式），其余自适应 */
+.el-menu--popup {
+  min-width: unset;
+}
+.el-menu--horizontal .el-menu--popup {
+  min-width: 120px;
+}
+.el-popper {
+  border: none;
+  border-radius: $radius;
+}
+.el-menu {
+  border-right: none;
+  &.el-menu--horizontal {
+    border: none;
+  }
+  .el-sub-menu.is-active {
+    > .el-sub-menu__title {
+      color: var(--el-menu-active-color);
+    }
+  }
+  .el-sub-menu__title:hover,
+  li.el-menu-item:not(.is-disabled):hover,
+  .el-menu-item.is-active {
+    background-color: unset;
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: auto;
+      left: 8px;
+      right: 8px;
+      /* hover 底色浮层上下内缩 4px */
+      top: 4px;
+      bottom: 4px;
+      border-radius: 4px;
+      pointer-events: none;
+      background-color: var(--el-menu-item-hover-fill);
+    }
+  }
+  li.el-menu-item {
+    &.is-active,
+    &.is-active:hover {
+      &::before {
+        background-color: var(--el-menu-hover-bg-color);
+      }
+    }
+  }
+}
+
+/* 卡片唯一入口：内边距取 RuoYi 版式；.el-card 前缀权重已够，无需 !important */
+.el-card {
+  display: flex;
+  flex-direction: column;
+  .el-card__header {
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    padding: 14px 15px 7px;
+    min-height: 40px;
+  }
+  .el-card__body {
+    height: 100%;
+    padding: 15px 20px 20px 20px;
+  }
+}
+
+.el-statistic {
+  .el-statistic__content {
+    font-weight: 400;
+    font-size: 24px;
+  }
+}
+
+.el-form {
+  .el-form-item__label {
+    text-align: right;
+    align-items: center;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+}
+
+.el-dialog {
+  .el-dialog__footer {
+    overflow: hidden;
+  }
+}
+
+.el-tabs {
+  &.segment {
+    border-radius: $radius;
+    border: none;
+    padding: 4px;
+    background-color: var(--el-fill-color-light);
+    --el-tabs-header-height: 30px;
+    .el-tabs__content {
+      display: none;
+    }
+    .el-tabs__header {
+      border: none;
+      .el-tabs__item {
+        border: none;
+        padding: 0 24px;
+        border-radius: $radius;
+      }
+    }
+  }
+}
+
+.el-divider__text {
+  font-size: 16px;
+}
+
+/* RuoYi 工具栏按钮（80 处 plain）：新增/删除=实心，修改/导入/导出=中性 plain，走 EP 变量随主题 */
+
+/* 禁用态：EP 的 .is-plain.is-disabled 是 3 类选择器，需同权重覆盖 */
+
+.el-form--inline {
+  .el-form-item {
+    .el-input, .el-cascader, .el-select, .el-autocomplete {
+      width: 200px;
+    }
+  }
+}
+
+/* 对话框统一 6vh。!important 必需：EP 的 top 属性内联注入该变量，内联优先于样式表 */
+.el-dialog:not(.is-fullscreen) {
+  margin-top: 6vh !important;
+}
+
+.el-dialog.scrollbar .el-dialog__body {
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: 70vh;
+  padding: 10px 20px 0;
+}
+
+/* 表头：底色/文字色走 EP 变量（随主题），高度/字号 EP 无对应变量 */
+.el-table {
+  --el-table-header-bg-color: var(--el-fill-color-light);
+  --el-table-header-text-color: var(--el-text-color-regular);
+
+  .el-table__header-wrapper th,
+  .el-table__fixed-header-wrapper th {
+    word-break: break-word;
+    height: 40px;
+    font-size: 13px;
+  }
+}
+
+.el-tree-node__content > .el-checkbox {
+  margin-right: 8px;
+}
+
+.el-button--primary.is-plain {
+  --el-button-bg-color: var(--el-color-primary);
+  --el-button-border-color: var(--el-color-primary);
+  --el-button-text-color: #fff;
+  --el-button-hover-bg-color: var(--el-color-primary-light-3);
+  --el-button-hover-border-color: var(--el-color-primary-light-3);
+  --el-button-hover-text-color: #fff;
+  --el-button-active-bg-color: var(--el-color-primary-dark-2);
+  --el-button-active-border-color: var(--el-color-primary-dark-2);
+  --el-button-disabled-bg-color: var(--el-color-primary-light-5);
+  --el-button-disabled-border-color: var(--el-color-primary-light-5);
+  --el-button-disabled-text-color: #fff;
+}
+
+.el-button--danger.is-plain {
+  --el-button-bg-color: var(--el-color-danger);
+  --el-button-border-color: var(--el-color-danger);
+  --el-button-text-color: #fff;
+  --el-button-hover-bg-color: var(--el-color-danger-light-3);
+  --el-button-hover-border-color: var(--el-color-danger-light-3);
+  --el-button-hover-text-color: #fff;
+  --el-button-active-bg-color: var(--el-color-danger-dark-2);
+  --el-button-active-border-color: var(--el-color-danger-dark-2);
+  --el-button-disabled-bg-color: var(--el-color-danger-light-5);
+  --el-button-disabled-border-color: var(--el-color-danger-light-5);
+  --el-button-disabled-text-color: #fff;
+}
+
+.el-button--success.is-plain,
+.el-button--info.is-plain,
+.el-button--warning.is-plain {
+  --el-button-bg-color: var(--el-fill-color-blank);
+  --el-button-border-color: var(--el-border-color);
+  --el-button-text-color: var(--el-text-color-regular);
+  --el-button-hover-bg-color: var(--el-color-primary-light-9);
+  --el-button-hover-border-color: var(--el-color-primary-light-5);
+  --el-button-hover-text-color: var(--el-color-primary);
+  --el-button-active-bg-color: var(--el-color-primary-light-9);
+  --el-button-active-border-color: var(--el-color-primary);
+  --el-button-disabled-bg-color: var(--el-fill-color-blank);
+  --el-button-disabled-border-color: var(--el-border-color-lighter);
+  --el-button-disabled-text-color: var(--el-text-color-placeholder);
+}
+
+.el-button--primary.is-plain.is-disabled,
+.el-button--primary.is-plain.is-disabled:hover {
+  color: #fff;
+  background-color: var(--el-color-primary-light-5);
+  border-color: var(--el-color-primary-light-5);
+}
+
+.el-button--danger.is-plain.is-disabled,
+.el-button--danger.is-plain.is-disabled:hover {
+  color: #fff;
+  background-color: var(--el-color-danger-light-5);
+  border-color: var(--el-color-danger-light-5);
+}
+
+.el-button--success.is-plain.is-disabled,
+.el-button--success.is-plain.is-disabled:hover,
+.el-button--info.is-plain.is-disabled,
+.el-button--info.is-plain.is-disabled:hover,
+.el-button--warning.is-plain.is-disabled,
+.el-button--warning.is-plain.is-disabled:hover {
+  color: var(--el-text-color-placeholder);
+  background-color: var(--el-fill-color-blank);
+  border-color: var(--el-border-color-lighter);
+}

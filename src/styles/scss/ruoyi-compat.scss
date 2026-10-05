@@ -1,0 +1,119 @@
+/**
+ * RuoYi 契约兼容层：只放「业务页/生成器依赖、且无法原子类化」的规则（分工见迁移文档 §8.2）。
+ * 本文件在 uno.css 之后加载 —— 勿定义与 UnoCSS 语义类（text-/bg-/border- 前缀）同名的类。
+ */
+
+/* 弹窗内分页（3 个弹窗用）：跨 append-to-body，且组件自带样式 chunk 后加载同权重 → 必须 !important */
+.el-dialog .pagination-container {
+  position: static !important;
+  margin: 10px 0 0 0 !important;
+  padding: 0 !important;
+
+  .el-pagination {
+    position: static;
+  }
+}
+
+/* 后端 9 个生成器模板产出本类（契约）；前端页面已统一用 UnoCSS 的 mb-8px */
+.mb8 {
+  margin-bottom: 8px;
+}
+
+/* RuoYi 表单分区标题约定（authRole、genInfoForm，复制页面也会带） */
+.form-header {
+  font-size:15px;
+  color:var(--el-text-color-primary);
+  border-bottom:1px solid var(--el-border-color);
+  margin:8px 10px 25px 10px;
+  padding-bottom:5px
+}
+
+/* 生成器契约：3 个 view.vue.vm 产出本组类名（另 system/user/view.vue 在用） */
+.detail-drawer {
+  .el-drawer__body {
+    padding: 0;
+  }
+  .el-drawer__header {
+    margin-bottom: 6px;
+    padding: 8px 12px 6px;
+    font-size: 15px;
+    color: var(--el-text-color-primary);
+    background: var(--el-fill-color-light);
+  }
+  .section-header {
+    font-size: 15px;
+    color: var(--el-text-color-primary);
+    border-bottom: 1px solid var(--el-border-color);
+    margin: 12px 0 16px 0;
+    padding-bottom: 8px;
+  }
+  .drawer-content {
+    padding: 0 20px 20px 20px;
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 8px 0;
+      min-height: 40px;
+    }
+    .info-label {
+      flex-shrink: 0;
+      width: 200px;
+      color: var(--el-text-color-regular);
+      font-size: 13px;
+      line-height: 1.6;
+      padding-top: 4px;
+      text-align: right;
+      margin-right: 14px;
+    }
+    .info-value {
+      flex: 1;
+      color: var(--el-text-color-primary);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.6;
+      word-break: break-all;
+      padding-top: 4px;
+      min-height: 1.6em;
+      &.plaintext {
+        border-bottom: 1px dashed var(--el-border-color);
+      }
+    }
+  }
+}
+
+/* 消费者：两张监控详情弹窗 + 锁屏页（lock.vue） */
+.error-title { color: var(--el-color-danger) !important; }
+.error-title i { color: var(--el-color-danger) !important; }
+.error-body { padding: 12px 16px; }
+.error-msg {
+  background: var(--el-color-danger-light-9);
+  border-left: 3px solid var(--el-color-danger);
+  border-radius: 3px;
+  padding: 8px 12px;
+  color: var(--el-color-danger);
+  font-size: 12px;
+  line-height: 1.7;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+/* SvgIcon 契约（组件无条件拼该类名）：只还原行内形态，不写 width/height（会压掉 h-23px 等尺寸类） */
+.svg-icon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: -0.15em;
+  overflow: hidden;
+}
+
+/* SortableJS 运行时类（UnoCSS 扫不到字面量） */
+.allowDrag { cursor: grab; }
+.allowDrag:active { cursor: grabbing; }
+
+.sortable-ghost {
+  opacity: 0.8;
+  color: #fff !important;
+  background: var(--el-color-success) !important;
+}
+
+
+
