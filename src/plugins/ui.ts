@@ -14,6 +14,9 @@ import { ElCard, ElForm, ElTableColumn } from 'element-plus';
 /**
  * 全局表格列居中（RuoYi 页面大量使用 el-table，统一居中）
  *
+ * 例外：树形表格（`tree-props`）的缩进列必须显式写 `align="left"`。居中会让每行按自身
+ * 文字宽度居中，缩进起点随行浮动，层级看起来错位（见 system/menu、system/dept）。
+ *
  * 注意这里用的是独立导出的 `ElTableColumn` 而不是 `ElTable.TableColumn`：
  * 2.14 的 `withInstall(main, extra)` 只给 main 挂 `setPropsDefaults`，extra 上的
  * 子组件（`ElTable.TableColumn`）运行时/类型上都没有；独立的 `ElTableColumn`

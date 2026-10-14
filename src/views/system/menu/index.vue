@@ -64,7 +64,7 @@
          :default-expand-all="isExpandAll"
          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
-         <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="260">
+         <el-table-column prop="menuName" label="菜单名称" align="left" :show-overflow-tooltip="true" width="260">
             <template #default="scope">
                <svg-icon :icon-class="scope.row.icon" />
                <span class="ml-5px">{{ scope.row.menuName }}</span>

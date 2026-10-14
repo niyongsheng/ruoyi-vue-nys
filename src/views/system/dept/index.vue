@@ -64,7 +64,7 @@
          :default-expand-all="isExpandAll"
          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
-         <el-table-column prop="deptName" label="部门名称" width="260"></el-table-column>
+         <el-table-column prop="deptName" label="部门名称" align="left" width="260"></el-table-column>
          <el-table-column prop="orderNum" label="排序" width="200">
             <template #default="scope">
                <el-input-number v-model="scope.row.orderNum" controls-position="right" :min="0" style="width: 88px" />

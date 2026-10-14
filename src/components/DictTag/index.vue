@@ -19,7 +19,7 @@
       </template>
     </template>
     <template v-if="unmatch && showValue">
-      {{ unmatchArray | handleArray }}
+      {{ unmatchArray.join(" ") }}
     </template>
   </div>
 </template>
@@ -67,13 +67,6 @@ const unmatch = computed(() => {
   })
   return unmatch // 返回标志的值
 })
-
-function handleArray(array) {
-  if (array.length === 0) return ""
-  return array.reduce((pre, cur) => {
-    return pre + " " + cur
-  })
-}
 
 function isValueMatch(itemValue) {
   return values.value.some(val => val == itemValue)
