@@ -74,6 +74,12 @@ declare namespace Env {
     readonly VITE_AUTOMATICALLY_DETECT_UPDATE?: CommonType.YesOrNo;
     /** show proxy url log in terminal */
     readonly VITE_PROXY_LOG?: CommonType.YesOrNo;
+    /**
+     * 构建产物预压缩格式，逗号分隔：gzip / brotli
+     *
+     * 不设置则不启用，见 build/plugins/compression.ts
+     */
+    readonly VITE_BUILD_COMPRESS?: string;
     /** The launch editor */
     readonly VITE_DEVTOOLS_LAUNCH_EDITOR?: import('vite-plugin-vue-devtools').VitePluginVueDevToolsOptions['launchEditor'];
   }

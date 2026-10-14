@@ -68,9 +68,6 @@ importers:
       sortablejs:
         specifier: 1.15.6
         version: 1.15.6
-      tailwind-merge:
-        specifier: 3.7.0
-        version: 3.7.0
       vue:
         specifier: 3.5.43
         version: 3.5.43(typescript@5.9.3)
@@ -165,6 +162,9 @@ importers:
       vite:
         specifier: npm:rolldown-vite@7.3.1
         version: rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3)
+      vite-plugin-compression:
+        specifier: 0.5.1
+        version: 0.5.1(rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3))
       vite-plugin-progress:
         specifier: 0.0.7
         version: 0.0.7(rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3))
@@ -4099,9 +4099,6 @@ packages:
     resolution: {integrity: sha512-eNRKgb3z66Yp3D2CixVujOUvXLFUTij/zVnV8KRyvFdQwpz7I5DS8UfRkTeLzb64u+dkzDSdelE24izu+zSSUg==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  tailwind-merge@3.7.0:
-    resolution: {integrity: sha512-XPPUyAc+cvspz3lHTcR/QgPfW2A0lv/xQNIjX3HGhLR+Nq2lHaLq5MtTesHn8GUr3W3DguT2KT5x3NVgRtYwmA==}
-
   tapable@2.2.3:
     resolution: {integrity: sha512-ZL6DDuAlRlLGghwcfmSn9sK3Hr6ArtyudlSAiCqQ6IfE+b+HHbydbYDIG15IfS5do+7XQQBdBiubF/cV2dnDzg==}
     engines: {node: '>=6'}
@@ -4392,6 +4389,11 @@ packages:
     resolution: {integrity: sha512-76Zs9zrHbH7M7wqeyooGQKdX+yg0pQ0xuQ1PbFp4z5a0Lzn2e5IPFoCswnmqZ4GiwqB4Jo3WcDAMO9jARTJl8w==}
     peerDependencies:
       vite: ^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0 || ^8.0.0
+
+  vite-plugin-compression@0.5.1:
+    resolution: {integrity: sha512-5QJKBDc+gNYVqL/skgFAP81Yuzo9R+EAf19d+EtsMF/i8kFUpNi3J/H01QD3Oo8zBQn+NzoCIFkpPLynoOzaJg==}
+    peerDependencies:
+      vite: '>=2.0.0'
 
   vite-plugin-inspect@11.4.1:
     resolution: {integrity: sha512-ShOFe2PURXGvRS5OrgmOLZOCwDTD7dEBVt0tMpFPKb9AsvqXKCRGM8QgKrUbRbJYFXScHvDPpGRd28rYidC0tA==}
@@ -5245,7 +5247,7 @@ snapshots:
   '@eslint/eslintrc@3.3.3':
     dependencies:
       ajv: 6.12.6
-      debug: 4.4.1
+      debug: 4.4.3
       espree: 10.4.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -6872,7 +6874,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.42.0
       comment-parser: 1.4.1
-      debug: 4.4.1
+      debug: 4.4.3
       eslint: 9.39.2(jiti@2.7.0)
       eslint-import-context: 0.1.9(unrs-resolver@1.11.1)
       is-glob: 4.0.3
@@ -8607,8 +8609,6 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.3.6
 
-  tailwind-merge@3.7.0: {}
-
   tapable@2.2.3: {}
 
   terser@5.44.0:
@@ -8968,6 +8968,15 @@ snapshots:
   vite-hot-client@2.2.0(rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3)):
     dependencies:
       vite: rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3)
+
+  vite-plugin-compression@0.5.1(rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3)):
+    dependencies:
+      chalk: 4.1.2
+      debug: 4.4.3
+      fs-extra: 10.1.0
+      vite: rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3)
+    transitivePeerDependencies:
+      - supports-color
 
   vite-plugin-inspect@11.4.1(rolldown-vite@7.3.1(@types/node@26.6.4)(esbuild@0.27.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.44.0)(tsx@4.23.15)(yaml@2.8.3)):
     dependencies:

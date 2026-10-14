@@ -16,7 +16,7 @@ export default defineConfig(
       // RuoYi 的接口层与工具层
       'src/api/**',
       'src/directive/**',
-      'src/utils/{auth,dict,errorCode,index,jsencrypt,passwordRule,ruoyi,scroll-to,validate}.js',
+      'src/utils/{auth,dict,errorCode,index,passwordRule,ruoyi,scroll-to,validate}.js',
       'src/utils/generator/**',
       'src/plugins/{cache,modal,tab}.js',
       'src/store/modules/{dict,lock}.js',

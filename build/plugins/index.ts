@@ -6,6 +6,7 @@ import { setupUnocss } from './unocss';
 import { setupUnplugin } from './unplugin';
 import { setupHtmlPlugin } from './html';
 import { setupDevtoolsPlugin } from './devtools';
+import { setupCompression } from './compression';
 
 export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
   const plugins: PluginOption = [
@@ -15,7 +16,8 @@ export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
     setupUnocss(),
     ...setupUnplugin(viteEnv),
     progress(),
-    setupHtmlPlugin(buildTime)
+    setupHtmlPlugin(buildTime),
+    ...setupCompression(viteEnv)
   ];
 
   return plugins;

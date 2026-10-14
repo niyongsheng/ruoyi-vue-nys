@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Placement } from 'element-plus';
-import { twMerge } from 'tailwind-merge';
 
 defineOptions({
   name: 'ButtonIcon',
@@ -32,7 +31,8 @@ const DEFAULT_CLASS = 'h-[36px] text-icon';
 
 <template>
   <ElTooltip :placement="tooltipPlacement" :content="tooltipContent" :z-index="zIndex" :disabled="!tooltipContent">
-    <ElButton text quaternary :class="twMerge(DEFAULT_CLASS, props.class)" v-bind="$attrs">
+    <!-- 传 class 覆盖默认样式时用 important 后缀（如 h-[32px]!），普通类名不保证覆盖顺序 -->
+    <ElButton text quaternary :class="[DEFAULT_CLASS, props.class]" v-bind="$attrs">
       <div class="flex-center gap-8px text-lg">
         <slot>
           <SvgIcon :icon="icon" />
