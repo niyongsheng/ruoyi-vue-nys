@@ -31,8 +31,8 @@ const bgColor = computed(() =>
 const loginFormRef = ref<FormInstance>();
 
 const loginForm = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: 'admin123',
   rememberMe: false,
   code: '',
   uuid: ''
