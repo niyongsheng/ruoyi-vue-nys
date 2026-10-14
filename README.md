@@ -70,5 +70,11 @@ VITE_PROXY_TARGET = http://localhost:8080
 </table>
 
 ## 联系我
-* E-mail: niyongsheng@Outlook.com
-* Weibo: [@Ni永胜](https://weibo.com/u/7317805089)
+
+> [!TIP]  
+> 如果您需要更完善的前后端框架(service+admin+app)欢迎关注[#NYS_ADMIN](https://www.bilibili.com/video/BV1zrpi68Eac)
+
++ Email: [niyongsheng@outlook.com](mailto:niyongsheng@outlook.com?subject=BusinessConsulting) 
++ X: [@niyongsheng](https://x.com/niyongsheng)
++ QQ: 2196749319
++ WeChat: looplooptech
