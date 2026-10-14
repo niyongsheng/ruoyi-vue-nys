@@ -9,6 +9,8 @@
 </p>
 
 [![爱发电](https://img.shields.io/badge/爱发电-Afdian-946ce6?style=for-the-badge&logo=github&logoColor=white)](https://ifdian.net/a/nico2026)
+
+#### https://niyongsheng.github.io/ruoyi-vue-nys
 ---
 
 ## 简介
