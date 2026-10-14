@@ -82,6 +82,14 @@ declare namespace Env {
     readonly VITE_BUILD_COMPRESS?: string;
     /** The launch editor */
     readonly VITE_DEVTOOLS_LAUNCH_EDITOR?: import('vite-plugin-vue-devtools').VitePluginVueDevToolsOptions['launchEditor'];
+    /**
+     * 首页「提交日志」拉取提交记录的 GitHub 仓库，格式 `owner/repo`
+     *
+     * 仅支持公开仓库（前端直连 api.github.com，不携带 Token）；留空则只展示静态兜底文案
+     */
+    readonly VITE_GITHUB_REPO?: string;
+    /** 首页「提交日志」拉取提交记录的分支，默认 main */
+    readonly VITE_GITHUB_BRANCH?: string;
   }
 }
 

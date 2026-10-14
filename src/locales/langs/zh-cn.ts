@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'NYS 管理系统',
+    title: 'NYS 后台管理系统',
     copyright: 'Copyright © 2026 NYS',
     updateTitle: '系统版本更新通知',
     updateContent: '检测到系统有新版本发布，是否立即刷新页面？',
@@ -13,6 +13,9 @@ const local: App.I18n.Schema = {
     closed: '已关闭',
     close: '关闭',
     confirm: '确认',
+    copy: '复制',
+    copied: '已复制',
+    copyFailed: '复制失败，请手动选择文本复制',
     keywordSearch: '请输入关键词搜索',
     loading: '加载中...',
     lockScreen: '锁定屏幕',
@@ -204,23 +207,17 @@ const local: App.I18n.Schema = {
       '500': '抱歉，服务器出错了'
     },
     home: {
-      downloadCount: '下载量',
-      registerCount: '注册量',
-      schedule: '作息安排',
-      study: '学习',
-      work: '工作',
-      rest: '休息',
-      entertainment: '娱乐',
-      projectNews: {
-        title: '系统动态',
-        moreNews: '更多动态',
-        desc1: '前端框架优化升级',
-        desc2: '后端菜单驱动路由接入完成，菜单管理改动即时生效。',
-        desc3: '多标签页与 KeepAlive 缓存机制已对齐 RuoYi 原有语义。',
-        desc4: '请求层契约适配完成，业务页面零改动迁移。',
-        desc5: '首页工作台已接入真实统计数据。'
+      other: '其它',
+      unknown: '未知',
+      browser: '浏览器',
+      projectCommits: {
+        title: '提交日志',
+        more: '更多'
       },
-      creativity: '创意',
+      projectIssues: {
+        title: '开放问题',
+        more: '更多'
+      },
       onlineUsers: '在线用户',
       scheduledJobs: '定时任务',
       operationLogs: '操作日志',

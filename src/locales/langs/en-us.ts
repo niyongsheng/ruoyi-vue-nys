@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'NYS Admin',
+    title: 'NYS Admin System',
     copyright: 'Copyright © 2026 NYS',
     updateTitle: 'System Version Update Notification',
     updateContent: 'A new version of the system has been detected. Do you want to refresh the page immediately?',
@@ -13,6 +13,9 @@ const local: App.I18n.Schema = {
     closed: 'Closed',
     close: 'Close',
     confirm: 'Confirm',
+    copy: 'Copy',
+    copied: 'Copied',
+    copyFailed: 'Copy failed, please select the text manually',
     keywordSearch: 'Please enter keyword',
     loading: 'Loading...',
     lockScreen: 'Lock Screen',
@@ -204,23 +207,17 @@ const local: App.I18n.Schema = {
       '500': 'Sorry, something went wrong with the server'
     },
     home: {
-      downloadCount: 'Download Count',
-      registerCount: 'Register Count',
-      schedule: 'Work and rest Schedule',
-      study: 'Study',
-      work: 'Work',
-      rest: 'Rest',
-      entertainment: 'Entertainment',
-      projectNews: {
-        title: 'System News',
-        moreNews: 'More News',
-        desc1: 'Frontend framework optimized & upgraded.',
-        desc2: 'Backend menu driven routing is online, menu changes take effect immediately.',
-        desc3: 'Multi-tab and KeepAlive caching aligned with the original RuoYi semantics.',
-        desc4: 'Request layer adapted, business pages migrated without modification.',
-        desc5: 'Dashboard now shows real statistics from the backend.'
+      other: 'Other',
+      unknown: 'Unknown',
+      browser: 'Browser',
+      projectCommits: {
+        title: 'Commit Log',
+        more: 'More'
       },
-      creativity: 'Creativity',
+      projectIssues: {
+        title: 'Open Issues',
+        more: 'More'
+      },
       onlineUsers: 'Online Users',
       scheduledJobs: 'Scheduled Jobs',
       operationLogs: 'Operation Logs',

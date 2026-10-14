@@ -5,8 +5,8 @@ import HeaderBanner from './modules/header-banner.vue';
 import CardData from './modules/card-data.vue';
 import LineChart from './modules/line-chart.vue';
 import PieChart from './modules/pie-chart.vue';
-import ProjectNews from './modules/project-news.vue';
-import CreativityBanner from './modules/creativity-banner.vue';
+import ProjectCommits from './modules/project-commits.vue';
+import ProjectIssues from './modules/project-issues.vue';
 
 // 路由名为 Index（后端菜单/页签/KeepAlive 依赖组件名与路由名一致）
 defineOptions({ name: 'Index' });
@@ -30,10 +30,10 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
     </ElRow>
     <ElRow :gutter="gap">
       <ElCol :lg="14" :sm="24" class="mb-16px">
-        <ProjectNews />
+        <ProjectCommits />
       </ElCol>
       <ElCol :lg="10" :sm="24" class="mb-16px">
-        <CreativityBanner />
+        <ProjectIssues />
       </ElCol>
     </ElRow>
   </ElSpace>

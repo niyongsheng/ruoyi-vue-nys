@@ -173,6 +173,37 @@ declare namespace App {
     };
   }
 
+  /** 首页命名空间 */
+  namespace Home {
+    /** 首页「提交日志」条目（数据源见 views/home/modules/project-commits.vue） */
+    interface ProjectCommit {
+      /** 唯一键，为 commit sha */
+      id: string;
+      /** 展示内容，为提交信息首行 */
+      content: string;
+      /** 展示时间 */
+      time: string;
+      /** 提交详情链接 */
+      url: string;
+    }
+
+    /** 首页「开放问题」条目（数据源见 views/home/modules/project-issues.vue） */
+    interface ProjectIssue {
+      /** 唯一键，为 GitHub issue id */
+      id: number;
+      /** issue 编号，展示为 #123 */
+      number: number;
+      /** 标题 */
+      title: string;
+      /** 提交人 login */
+      user: string;
+      /** 创建时间 */
+      time: string;
+      /** issue 详情链接 */
+      url: string;
+    }
+  }
+
   /** Global namespace */
   namespace Global {
     type VNode = import('vue').VNode;
@@ -312,6 +343,9 @@ declare namespace App {
         closed: string;
         close: string;
         confirm: string;
+        copy: string;
+        copied: string;
+        copyFailed: string;
         keywordSearch: string;
         loading: string;
         lockScreen: string;
@@ -503,23 +537,17 @@ declare namespace App {
           '500': string;
         };
         home: {
-          downloadCount: string;
-          registerCount: string;
-          schedule: string;
-          study: string;
-          work: string;
-          rest: string;
-          entertainment: string;
-          projectNews: {
+          other: string;
+          unknown: string;
+          browser: string;
+          projectCommits: {
             title: string;
-            moreNews: string;
-            desc1: string;
-            desc2: string;
-            desc3: string;
-            desc4: string;
-            desc5: string;
+            more: string;
           };
-          creativity: string;
+          projectIssues: {
+            title: string;
+            more: string;
+          };
           onlineUsers: string;
           scheduledJobs: string;
           operationLogs: string;
