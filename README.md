@@ -33,12 +33,19 @@
 
 ```bash
 pnpm install
-pnpm dev           # 开发（默认 9527 端口，接口代理到 http://localhost:8080）
+pnpm dev           # 开发（默认 9527 端口，接口代理到 http://vue.ruoyi.vip/prod-api）
 pnpm typecheck     # 类型检查
 pnpm lint          # 代码检查
 
 pnpm build:prod    # 构建（生产，接口前缀 /prod-api）→ dist/
 pnpm build:stage   # 构建（预发布，接口前缀 /stage-api）→ dist/
+```
+
+开发环境默认代理到若依官方演示站（`admin` / `admin123`，需填验证码）。
+联调本地后端时新建 `.env.development.local` 覆盖即可，无需改动已入库的配置：
+
+```ini
+VITE_PROXY_TARGET = http://localhost:8080
 ```
 
 ## 效果图
