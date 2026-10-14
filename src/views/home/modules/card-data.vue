@@ -104,7 +104,6 @@ onMounted(loadCounts);
 
 const rootRef = ref<HTMLElement>();
 
-/** 容器级：把鼠标在网格内的坐标写入 CSS 变量 */
 function handleMove(e: PointerEvent) {
   const el = rootRef.value;
   if (!el) return;
@@ -114,7 +113,6 @@ function handleMove(e: PointerEvent) {
   el.style.setProperty('--y', `${e.clientY - rect.top}px`);
 }
 
-/** 卡片级：把鼠标在卡片内的坐标写入 CSS 变量（用于卡片内高光） */
 function handleCardMove(e: MouseEvent) {
   const card = e.currentTarget as HTMLElement;
   const rect = card.getBoundingClientRect();

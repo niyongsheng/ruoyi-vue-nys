@@ -27,7 +27,6 @@ const visible = defineModel<boolean>('show', { required: true });
 
 const searchInput = ref<InputInstance>();
 
-// 打开时先填充列表（空关键词 → 全部菜单）
 watch(visible, show => {
   if (show) {
     search();
@@ -58,7 +57,6 @@ function handleClose() {
   }, 200);
 }
 
-/** key up */
 function handleUp() {
   const { length } = resultOptions.value;
   if (length === 0) return;
@@ -71,7 +69,6 @@ function handleUp() {
   activePath.value = resultOptions.value[activeIndex].routePath;
 }
 
-/** key down */
 function handleDown() {
   const { length } = resultOptions.value;
   if (length === 0) return;
@@ -88,7 +85,6 @@ function getActivePathIndex() {
   return resultOptions.value.findIndex(item => item.routePath === activePath.value);
 }
 
-/** key enter */
 function handleEnter() {
   if (resultOptions.value?.length === 0 || activePath.value === '') return;
   handleClose();
@@ -102,7 +98,6 @@ function registerShortcut() {
   onKeyStroke('ArrowDown', handleDown);
 }
 
-/** open dialog and set input focus */
 function setFocus() {
   setTimeout(() => {
     searchInput.value?.focus();

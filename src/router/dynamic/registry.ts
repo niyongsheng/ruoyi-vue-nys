@@ -7,12 +7,6 @@
 const nameToPath = new Map<string, string>();
 const pathToName = new Map<string, string>();
 
-/**
- * 注册一条路由的 name/path 映射
- *
- * @param name 路由名称
- * @param path 路由完整路径（以 / 开头）
- */
 export function registerRoute(name: string, path: string) {
   if (!name || !path) return;
 
@@ -38,7 +32,6 @@ export function getRoutePath(name: string): string {
   return nameToPath.get(name) ?? '';
 }
 
-/** 按路径取路由名 */
 export function getRouteName(path: string) {
   return pathToName.get(path) ?? null;
 }

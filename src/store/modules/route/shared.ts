@@ -3,11 +3,6 @@ import type { ElegantConstRoute, RouteKey, RouteMap } from '@elegant-router/type
 import { useSvgIcon } from '@/hooks/common/icon';
 import { $t } from '@/locales';
 
-/**
- * sort route by order
- *
- * @param route route
- */
 function sortRouteByOrder(route: ElegantConstRoute) {
   if (route.children?.length) {
     route.children.sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0));
@@ -17,11 +12,6 @@ function sortRouteByOrder(route: ElegantConstRoute) {
   return route;
 }
 
-/**
- * sort routes by order
- *
- * @param routes routes
- */
 export function sortRoutesByOrder(routes: ElegantConstRoute[]) {
   routes.sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0));
   routes.forEach(sortRouteByOrder);
@@ -29,11 +19,6 @@ export function sortRoutesByOrder(routes: ElegantConstRoute[]) {
   return routes;
 }
 
-/**
- * Get global menus by auth routes
- *
- * @param routes Auth routes
- */
 export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
   const menus: App.Global.Menu[] = [];
 
@@ -52,11 +37,6 @@ export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
   return menus;
 }
 
-/**
- * Update locale of global menus
- *
- * @param menus
- */
 export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
   const result: App.Global.Menu[] = [];
 
@@ -80,11 +60,6 @@ export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
   return result;
 }
 
-/**
- * Get global menu by route
- *
- * @param route
- */
 function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | ElegantConstRoute) {
   const { SvgIconVNode } = useSvgIcon();
 
@@ -107,12 +82,6 @@ function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | Elegant
   return menu;
 }
 
-/**
- * Get selected menu key path
- *
- * @param selectedKey
- * @param menus
- */
 export function getSelectedMenuKeyPathByKey(selectedKey: string, menus: App.Global.Menu[]) {
   const keyPath: string[] = [];
 
@@ -131,12 +100,6 @@ export function getSelectedMenuKeyPathByKey(selectedKey: string, menus: App.Glob
   return keyPath;
 }
 
-/**
- * Find menu path
- *
- * @param targetKey Target menu key
- * @param menu Menu
- */
 function findMenuPath(targetKey: string, menu: App.Global.Menu): string[] | null {
   const path: string[] = [];
 
@@ -167,11 +130,6 @@ function findMenuPath(targetKey: string, menu: App.Global.Menu): string[] | null
   return null;
 }
 
-/**
- * Transform menu to breadcrumb
- *
- * @param menu
- */
 function transformMenuToBreadcrumb(menu: App.Global.Menu) {
   const { children, ...rest } = menu;
 
@@ -186,12 +144,6 @@ function transformMenuToBreadcrumb(menu: App.Global.Menu) {
   return breadcrumb;
 }
 
-/**
- * Get breadcrumbs by route
- *
- * @param route
- * @param menus
- */
 export function getBreadcrumbsByRoute(
   route: RouteLocationNormalizedLoaded,
   menus: App.Global.Menu[]
@@ -228,12 +180,6 @@ export function getBreadcrumbsByRoute(
   return [];
 }
 
-/**
- * Transform menu to searchMenus
- *
- * @param menus - menus
- * @param treeMap
- */
 export function transformMenuToSearchMenus(menus: App.Global.Menu[], treeMap: App.Global.Menu[] = []) {
   if (menus && menus.length === 0) return [];
   return menus.reduce((acc, cur) => {

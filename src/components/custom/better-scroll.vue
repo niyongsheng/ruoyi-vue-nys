@@ -30,7 +30,6 @@ function initBetterScroll() {
   instance.value = new BScroll(bsWrapper.value, props.options);
 }
 
-// refresh BS when scroll element size changed
 watch([() => wrapWidth.value, () => width.value, () => height.value], () => {
   instance.value?.refresh();
 });

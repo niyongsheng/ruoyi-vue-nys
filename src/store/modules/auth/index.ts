@@ -41,10 +41,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     isPasswordExpired: false
   });
 
-  /** Is login */
   const isLogin = computed(() => Boolean(token.value));
 
-  /** Reset auth store */
   async function resetStore() {
     recordUserId();
 

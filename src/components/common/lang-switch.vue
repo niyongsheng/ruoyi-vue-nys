@@ -5,11 +5,8 @@ import { $t } from '@/locales';
 defineOptions({ name: 'LangSwitch' });
 
 interface Props {
-  /** Current language */
   lang: App.I18n.LangType;
-  /** Language options */
   langOptions: App.I18n.LangOption[];
-  /** Show tooltip */
   showTooltip?: boolean;
 }
 

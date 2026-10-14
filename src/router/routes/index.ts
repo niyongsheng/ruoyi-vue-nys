@@ -14,11 +14,6 @@ export function createStaticRoutes() {
   };
 }
 
-/**
- * 把 ElegantConstRoute 转成 vue-router 的路由记录
- *
- * @param routes Elegant routes
- */
 export function getAuthVueRoutes(routes: ElegantConstRoute[]) {
   return transformElegantRoutesToVueRoutes(routes, layouts, views);
 }

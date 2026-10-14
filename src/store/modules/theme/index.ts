@@ -14,15 +14,12 @@ import {
   toggleCssDarkMode
 } from './shared';
 
-/** Theme store */
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope();
   const osTheme = usePreferredColorScheme();
 
-  /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
 
-  /** Dark mode */
   const darkMode = computed(() => {
     if (settings.value.themeScheme === 'auto') {
       return osTheme.value === 'dark';
@@ -30,13 +27,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     return settings.value.themeScheme === 'dark';
   });
 
-  /** grayscale mode */
   const grayscaleMode = computed(() => settings.value.grayscale);
 
-  /** colourWeakness mode */
   const colourWeaknessMode = computed(() => settings.value.colourWeakness);
 
-  /** Theme colors */
   const themeColors = computed(() => {
     const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
     const colors: App.Theme.ThemeColor = {
@@ -54,39 +48,22 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   const settingsJson = computed(() => JSON.stringify(settings.value));
 
-  /** Reset store */
   function resetStore() {
     settings.value = themeSettings;
   }
 
-  /**
-   * Set theme scheme
-   *
-   * @param themeScheme
-   */
   function setThemeScheme(themeScheme: UnionKey.ThemeScheme) {
     settings.value.themeScheme = themeScheme;
   }
 
-  /**
-   * Set grayscale value
-   *
-   * @param isGrayscale
-   */
   function setGrayscale(isGrayscale: boolean) {
     settings.value.grayscale = isGrayscale;
   }
 
-  /**
-   * Set colourWeakness value
-   *
-   * @param isColourWeakness
-   */
   function setColourWeakness(isColourWeakness: boolean) {
     settings.value.colourWeakness = isColourWeakness;
   }
 
-  /** Toggle theme scheme */
   function toggleThemeScheme() {
     const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
 
@@ -99,18 +76,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     setThemeScheme(nextThemeScheme);
   }
 
-  /**
-   * Update theme colors
-   *
-   * @param key Theme color key
-   * @param color Theme color
-   */
   function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
     let colorValue = color;
 
     if (settings.value.recommendColor) {
-      // get a color palette by provided color and color name, and use the suitable color
-
       colorValue = getPaletteColorByNumber(color, 500, true);
     }
 
@@ -121,16 +90,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     }
   }
 
-  /**
-   * Set theme layout
-   *
-   * @param mode Theme layout mode
-   */
   function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
     settings.value.layout.mode = mode;
   }
 
-  /** Setup theme vars to global */
   function setupThemeVarsToGlobal() {
     const { themeTokens, darkThemeTokens } = createThemeToken(
       themeColors.value,
@@ -139,16 +102,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     );
     addThemeVarsToGlobal(themeTokens, darkThemeTokens);
   }
-  /**
-   * Set layout reverse horizontal mix
-   *
-   * @param reverse Reverse horizontal mix
-   */
   function setLayoutReverseHorizontalMix(reverse: boolean) {
     settings.value.layout.reverseHorizontalMix = reverse;
   }
 
-  /** Cache theme settings */
   function cacheThemeSettings() {
     // 开发模式不缓存主题设置（改 theme/settings.ts 默认值即时生效）
     if (import.meta.env.MODE === 'development') return;
@@ -156,9 +113,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     localStg.set('themeSettings', settings.value);
   }
 
-  // watch store
   scope.run(() => {
-    // watch dark mode
     watch(
       darkMode,
       val => {
@@ -176,7 +131,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       { immediate: true }
     );
 
-    // themeColors change, update css vars and storage theme color
     watch(
       themeColors,
       val => {
@@ -186,7 +140,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       { immediate: true }
     );
 
-    // cache theme settings when settings change
     watch(
       settings,
       () => {
@@ -196,7 +149,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     );
   });
 
-  /** On scope dispose */
   onScopeDispose(() => {
     scope.stop();
   });

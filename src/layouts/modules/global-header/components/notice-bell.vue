@@ -24,7 +24,6 @@ const detailRef = ref<InstanceType<typeof NoticeDetail>>();
 
 let closeTimer: ReturnType<typeof setTimeout> | undefined;
 
-/** 拉取顶部公告 */
 async function loadNotices() {
   loading.value = true;
 
@@ -68,7 +67,6 @@ async function previewNotice(item: NoticeItem) {
   detailRef.value?.open(item.noticeId);
 }
 
-/** 全部标记已读 */
 async function markAllRead() {
   const ids = notices.value.map(item => item.noticeId).join(',');
 

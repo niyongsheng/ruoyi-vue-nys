@@ -3,14 +3,9 @@ import { bgRed, bgYellow, green, lightBlue } from 'kolorist';
 import { consola } from 'consola';
 
 /**
- * Set http proxy
- *
  * 与 `src/utils/request.js` 共用同一个基址约定，避免"两个变量必须手工保持一致"：
  *  - `VITE_APP_BASE_API`：前端调用的接口前缀（dev 走代理，prod 由 nginx 反代）
  *  - `VITE_PROXY_TARGET`：dev 代理的后端真实地址（仅 dev 需要，见 .env.development）
- *
- * @param env - The current env
- * @param enable - If enable http proxy
  */
 export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
   const isEnableHttpProxy = enable && env.VITE_HTTP_PROXY === 'Y';

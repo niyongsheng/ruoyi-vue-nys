@@ -12,11 +12,6 @@ const i18n = createI18n({
   warnHtmlMessage: false
 });
 
-/**
- * Setup plugin i18n
- *
- * @param app
- */
 export function setupI18n(app: App) {
   app.use(i18n);
 }

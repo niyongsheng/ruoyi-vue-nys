@@ -25,7 +25,6 @@ export const router = createRouter({
 // RuoYi 侧习惯 `import router from '@/router'`，这里补一个默认导出
 export default router;
 
-/** Setup Vue Router */
 export async function setupRouter(app: App) {
   app.use(router);
   createRouterGuard(router);

@@ -12,9 +12,7 @@ defineOptions({ name: 'SvgIcon', inheritAttrs: false });
  * - `iconClass` / `className` / `color` 是 RuoYi `<svg-icon>` 的兼容写法
  */
 interface Props {
-  /** Iconify icon name */
   icon?: string;
-  /** Local svg icon name */
   localIcon?: string;
   /** RuoYi 写法：本地 svg 图标名 */
   iconClass?: string;
@@ -49,7 +47,6 @@ const symbolId = computed(() => {
   return `#${prefix}-${icon}`;
 });
 
-/** If localIcon/iconClass is passed, render localIcon first */
 const renderLocalIcon = computed(() => localIconName.value || !props.icon);
 </script>
 

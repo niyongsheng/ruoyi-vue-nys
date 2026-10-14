@@ -28,7 +28,6 @@ function typeColor(type: LoggerType) {
 
 function print(type: LoggerType = 'default', text: unknown, back = false) {
   if (typeof text === 'object') {
-    // 如果是对象则调用打印对象方式
     if (isArray(text)) {
       console.table(text);
     } else {
@@ -38,7 +37,6 @@ function print(type: LoggerType = 'default', text: unknown, back = false) {
   }
 
   if (back) {
-    // 打印带背景色的
     console.log(`%c ${text} `, `background:${typeColor(type)}; padding: 2px; border-radius: 4px; color: #fff;`);
     return;
   }

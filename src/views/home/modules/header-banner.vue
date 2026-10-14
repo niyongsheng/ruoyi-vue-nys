@@ -54,7 +54,7 @@ const greeting = computed(() => {
   return $t('page.home.greeting', { greeting: $t(greetingKey.value), name });
 });
 
-/** 头像：优先用后端返回的头像，回退到本地默认图 */
+// 后端可能返回相对路径，需拼上接口前缀（见 sys_user.avatar）
 const avatarUrl = computed(() => {
   const { avatar } = authStore.userInfo;
 

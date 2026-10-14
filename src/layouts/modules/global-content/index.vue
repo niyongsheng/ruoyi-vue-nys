@@ -9,7 +9,6 @@ import { useTabStore } from '@/store/modules/tab';
 defineOptions({ name: 'GlobalContent' });
 
 interface Props {
-  /** Show padding for content */
   showPadding?: boolean;
 }
 

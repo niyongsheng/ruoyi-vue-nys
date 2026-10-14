@@ -25,11 +25,7 @@ const props = defineProps<Props>();
 
 const { routerPushByKey } = useRouterPush();
 
-/**
- * 插图（取自 vue-pure-admin 的 status 插图）
- *
- * 401 与 403 同属「无权限」，复用同一张锁形插图。
- */
+// 401/403 同属「无权限」：复用同一张锁形插图（取自 vue-pure-admin 的 status 插图）
 const illustrationMap: Record<ExceptionType, string> = {
   401: 'status-403',
   403: 'status-403',

@@ -14,11 +14,8 @@ import UserAvatar from './components/user-avatar.vue';
 defineOptions({ name: 'GlobalHeader' });
 
 interface Props {
-  /** Whether to show the logo */
   showLogo?: App.Global.HeaderProps['showLogo'];
-  /** Whether to show the menu toggler */
   showMenuToggler?: App.Global.HeaderProps['showMenuToggler'];
-  /** Whether to show the menu */
   showMenu?: App.Global.HeaderProps['showMenu'];
 }
 

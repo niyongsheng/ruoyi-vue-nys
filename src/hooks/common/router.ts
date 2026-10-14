@@ -3,13 +3,7 @@ import type { RouteLocationRaw } from 'vue-router';
 import type { RouteKey } from '@elegant-router/types';
 import { router as globalRouter } from '@/router';
 
-/**
- * Router push
- *
- * Jump to the specified route, it can replace function router.push
- *
- * @param inSetup Whether is in vue script setup
- */
+/** @param inSetup 传 false 表示不在组件上下文中，改用全局 router 实例 */
 export function useRouterPush(inSetup = true) {
   const router = inSetup ? useRouter() : globalRouter;
   const route = globalRouter.currentRoute;
@@ -43,22 +37,12 @@ export function useRouterPush(inSetup = true) {
     return routerPushByKey('root');
   }
 
-  /**
-   * Navigate to login page
-   *
-   * @param redirectUrl The redirect url, if not specified, it will be the current route fullPath
-   */
   async function toLogin(redirectUrl?: string) {
     const redirect = redirectUrl || route.value.fullPath;
 
     return routerPushByKey('login', { query: { redirect } });
   }
 
-  /**
-   * Redirect from login
-   *
-   * @param [needRedirect=true] Whether to redirect after login. Default is `true`
-   */
   async function redirectFromLogin(needRedirect = true) {
     const redirect = route.value.query?.redirect as string;
 

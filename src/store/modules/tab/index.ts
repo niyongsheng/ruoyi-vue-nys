@@ -27,21 +27,16 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   const themeStore = useThemeStore();
   const { routerPush } = useRouterPush(false);
 
-  /** Tabs */
   const tabs = ref<App.Global.Tab[]>([]);
 
-  /** Get active tab */
   const homeTab = ref<App.Global.Tab>();
 
-  /** Init home tab */
   function initHomeTab() {
     homeTab.value = getDefaultHomeTab(router, routeStore.routeHome);
   }
 
-  /** Get all tabs */
   const allTabs = computed(() => getAllTabs(tabs.value, homeTab.value));
 
-  /** Active tab id */
   const activeTabId = ref<string>('');
 
   /** 页签是否已经初始化过（区分冷启动与布局重新挂载，见 initTabStore） */
@@ -56,20 +51,10 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     allTabs.value.filter(tab => tab.keepAlive !== false && tab.routeKey).map(tab => tab.routeKey)
   );
 
-  /**
-   * Set active tab id
-   *
-   * @param id Tab id
-   */
   function setActiveTabId(id: string) {
     activeTabId.value = id;
   }
 
-  /**
-   * Init tab store
-   *
-   * @param currentRoute Current route
-   */
   function initTabStore(currentRoute: App.Global.TabRoute) {
     const storageTabs = localStg.get('globalTabs');
 
@@ -89,12 +74,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     addTab(currentRoute);
   }
 
-  /**
-   * Add tab
-   *
-   * @param route Tab route
-   * @param active Whether to activate the added tab
-   */
   function addTab(route: App.Global.TabRoute, active = true) {
     const tab = getTabByRoute(route);
 
@@ -120,13 +99,10 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     const isRemoveActiveTab = activeTabId.value === tabId;
 
-    // if remove the last tab, then switch to the second last tab
     const nextTab = tabs.value[removeTabIndex + 1] || tabs.value[removeTabIndex - 1] || homeTab.value;
 
-    // remove tab
     tabs.value.splice(removeTabIndex, 1);
 
-    // if current tab is removed, then switch to next tab
     if (isRemoveActiveTab && nextTab) {
       await switchRouteByTab(nextTab);
     }
@@ -137,11 +113,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     await removeTab(activeTabId.value);
   }
 
-  /**
-   * remove tab by route name
-   *
-   * @param routeName route name
-   */
   async function removeTabByRouteName(routeName: RouteKey) {
     const tab = findTabByRouteName(routeName, tabs.value);
     if (!tab) return;
@@ -149,11 +120,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     await removeTab(tab.id);
   }
 
-  /**
-   * Clear tabs
-   *
-   * @param excludes Exclude tab ids
-   */
   async function clearTabs(excludes: string[] = []) {
     const remainTabIds = [...getFixedTabIds(tabs.value), ...excludes];
 
@@ -161,7 +127,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     const removedTabsIds = tabsToRemove.map(tab => tab.id);
 
-    // If no tabs are actually being removed based on excludes and fixed tabs, exit
     if (removedTabsIds.length === 0) {
       return;
     }
@@ -174,7 +139,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       const activeTabCandidate = updatedTabs[updatedTabs.length - 1] || homeTab.value;
 
       if (activeTabCandidate) {
-        // Ensure there's a tab to switch to
         await switchRouteByTab(activeTabCandidate);
       }
     }
@@ -182,11 +146,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     tabs.value = updatedTabs;
   }
 
-  /**
-   * Switch route by tab
-   *
-   * @param tab
-   */
   async function switchRouteByTab(tab: App.Global.Tab) {
     const fail = await routerPush(tab.fullPath);
     if (!fail) {
@@ -194,11 +153,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     }
   }
 
-  /**
-   * Clear left tabs
-   *
-   * @param tabId
-   */
   async function clearLeftTabs(tabId: string) {
     const tabIds = tabs.value.map(tab => tab.id);
     const index = tabIds.indexOf(tabId);
@@ -208,11 +162,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     await clearTabs(excludes);
   }
 
-  /**
-   * Clear right tabs
-   *
-   * @param tabId
-   */
   async function clearRightTabs(tabId: string) {
     const isHomeTab = tabId === homeTab.value?.id;
     if (isHomeTab) {
@@ -228,13 +177,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     await clearTabs(excludes);
   }
 
-  /**
-   * Set new label of tab
-   *
-   * @default activeTabId
-   * @param label New tab label
-   * @param tabId Tab id
-   */
   function setTabLabel(label: string, tabId?: string) {
     const id = tabId || activeTabId.value;
 
@@ -245,12 +187,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     tab.newLabel = label;
   }
 
-  /**
-   * Reset tab label
-   *
-   * @default activeTabId
-   * @param tabId Tab id
-   */
   function resetTabLabel(tabId?: string) {
     const id = tabId || activeTabId.value;
 
@@ -260,11 +196,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     tab.newLabel = undefined;
   }
 
-  /**
-   * Is tab retain
-   *
-   * @param tabId
-   */
   function isTabRetain(tabId: string) {
     if (tabId === homeTab.value?.id) return true;
 
@@ -273,7 +204,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     return fixedTabIds.includes(tabId);
   }
 
-  /** Update tabs by locale */
   function updateTabsByLocale() {
     tabs.value = updateTabsByI18nKey(tabs.value);
 
@@ -282,7 +212,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     }
   }
 
-  /** Cache tabs */
   function cacheTabs() {
     if (!themeStore.tab.cache) return;
 
@@ -295,7 +224,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   });
 
   return {
-    /** All tabs */
     tabs: allTabs,
     activeTabId,
     cachedRouteKeys,

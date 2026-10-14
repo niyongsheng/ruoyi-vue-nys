@@ -4,7 +4,6 @@ import { $t } from '@/locales';
 defineOptions({ name: 'GlobalLogo' });
 
 interface Props {
-  /** Whether to show the title */
   showTitle?: boolean;
 }
 

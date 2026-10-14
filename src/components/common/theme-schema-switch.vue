@@ -6,11 +6,8 @@ import { $t } from '@/locales';
 defineOptions({ name: 'ThemeSchemaSwitch' });
 
 interface Props {
-  /** Theme schema */
   themeSchema: UnionKey.ThemeScheme;
-  /** Show tooltip */
   showTooltip?: boolean;
-  /** Tooltip placement */
   tooltipPlacement?: Placement;
 }
 

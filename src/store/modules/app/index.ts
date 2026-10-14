@@ -29,14 +29,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     toggle: toggleMixSiderFixed
   } = useBoolean(localStg.get('mixSiderFixed') === 'Y');
 
-  /** Is mobile layout */
   const isMobile = breakpoints.smaller('sm');
 
-  /**
-   * Reload page
-   *
-   * @param duration Duration time
-   */
   async function reloadPage(duration = 300) {
     setReloadFlag(false);
 
@@ -62,7 +56,6 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     localStg.set('lang', lang);
   }
 
-  /** Update document title by locale */
   function updateDocumentTitleByLocale() {
     const { i18nKey, title } = router.currentRoute.value.meta;
 
@@ -75,14 +68,11 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     setDayjsLocale(locale.value);
   }
 
-  // watch store
   scope.run(() => {
-    // watch isMobile, if is mobile, collapse sider
     watch(
       isMobile,
       newValue => {
         if (newValue) {
-          // backup theme setting before is mobile
           localStg.set('backupThemeSettingBeforeIsMobile', {
             layout: themeStore.layout.mode,
             siderCollapse: siderCollapse.value
@@ -91,7 +81,6 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
           themeStore.setThemeLayout('vertical');
           setSiderCollapse(true);
         } else {
-          // when is not mobile, recover the backup theme setting
           const backup = localStg.get('backupThemeSettingBeforeIsMobile');
 
           if (backup) {
@@ -107,33 +96,25 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       { immediate: true }
     );
 
-    // watch locale
     watch(locale, () => {
-      // update document title by locale
       updateDocumentTitleByLocale();
 
-      // update global menus by locale
       routeStore.updateGlobalMenusByLocale();
 
-      // update tabs by locale
       tabStore.updateTabsByLocale();
 
-      // set dayjs locale
       setDayjsLocale(locale.value);
     });
   });
 
-  // cache mixSiderFixed
   useEventListener(window, 'beforeunload', () => {
     localStg.set('mixSiderFixed', mixSiderFixed.value ? 'Y' : 'N');
   });
 
-  /** On scope dispose */
   onScopeDispose(() => {
     scope.stop();
   });
 
-  // init
   init();
 
   return {

@@ -23,10 +23,8 @@ const NOT_FOUND_ROUTE: CustomRoute = {
   }
 };
 
-/** builtin routes, it must be constant and setup in vue-router */
 const builtinRoutes: CustomRoute[] = [ROOT_ROUTE, NOT_FOUND_ROUTE];
 
-/** create builtin vue routes */
 export function createBuiltinVueRoutes() {
   builtinRoutes.forEach(route => registerRoute(route.name, route.path));
 

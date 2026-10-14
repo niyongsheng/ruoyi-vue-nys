@@ -40,19 +40,12 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * 原 soybean 的 static 路由模式及其角色过滤分支已移除。
    */
 
-  /** Home route key */
   const routeHome = ref(import.meta.env.VITE_ROUTE_HOME);
 
-  /**
-   * Set route home
-   *
-   * @param routeKey Route key
-   */
   function setRouteHome(routeKey: LastLevelRouteKey) {
     routeHome.value = routeKey;
   }
 
-  /** constant routes */
   const constantRoutes = shallowRef<ElegantConstRoute[]>([]);
 
   function addConstantRoutes(routes: ElegantConstRoute[]) {
@@ -65,7 +58,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     constantRoutes.value = Array.from(constantRoutesMap.values());
   }
 
-  /** auth routes */
   const authRoutes = shallowRef<ElegantConstRoute[]>([]);
 
   function addAuthRoutes(routes: ElegantConstRoute[]) {
@@ -80,33 +72,19 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   const removeRouteFns: (() => void)[] = [];
 
-  /** Global menus */
   const menus = ref<App.Global.Menu[]>([]);
   const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
 
-  /** Get global menus */
   function getGlobalMenus(routes: ElegantConstRoute[]) {
     menus.value = getGlobalMenusByAuthRoutes(routes);
   }
 
-  /** Update global menus by locale */
   function updateGlobalMenusByLocale() {
     menus.value = updateLocaleOfGlobalMenus(menus.value);
   }
 
-  /**
-   * Exclude cache routes
-   *
-   * for reset route cache
-   */
   const excludeCacheRoutes = ref<RouteKey[]>([]);
 
-  /**
-   * Reset route cache
-   *
-   * @default router.currentRoute.value.name current route name
-   * @param routeKey
-   */
   async function resetRouteCache(routeKey?: RouteKey) {
     const routeName = routeKey || (router.currentRoute.value.name as RouteKey);
 
@@ -117,10 +95,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     excludeCacheRoutes.value = [];
   }
 
-  /** Global breadcrumbs */
   const breadcrumbs = computed(() => getBreadcrumbsByRoute(router.currentRoute.value, menus.value));
 
-  /** Reset store */
   async function resetStore() {
     const routeStore = useRouteStore();
 
@@ -134,13 +110,11 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     await initConstantRoute();
   }
 
-  /** Reset vue routes */
   function resetVueRoutes() {
     removeRouteFns.forEach(fn => fn());
     removeRouteFns.length = 0;
   }
 
-  /** init constant route */
   async function initConstantRoute() {
     if (isInitConstantRoute.value) return;
 
@@ -158,7 +132,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     tabStore.initHomeTab();
   }
 
-  /** Init auth route */
   async function initAuthRoute() {
     // 本项目固定为「后端菜单驱动」（原 soybean 的 static 模式分支已移除）
     await initDynamicAuthRoute();
@@ -205,7 +178,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     });
   }
 
-  /** handle constant and auth routes */
   function handleConstantAndAuthRoutes() {
     const allRoutes = [...constantRoutes.value, ...authRoutes.value];
 
@@ -220,11 +192,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     getGlobalMenus(sortRoutes);
   }
 
-  /**
-   * Add routes to vue router
-   *
-   * @param routes Vue routes
-   */
   function addRoutesToVueRouter(routes: RouteRecordRaw[]) {
     routes.forEach(route => {
       const removeFn = router.addRoute(route);
@@ -232,20 +199,10 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     });
   }
 
-  /**
-   * Add remove route fn
-   *
-   * @param fn
-   */
   function addRemoveRouteFn(fn: () => void) {
     removeRouteFns.push(fn);
   }
 
-  /**
-   * Update root route redirect when auth route mode is dynamic
-   *
-   * @param redirectKey Redirect route key
-   */
   function handleUpdateRootRouteRedirect(redirectKey: LastLevelRouteKey) {
     const redirect = getRoutePath(redirectKey);
 
@@ -260,21 +217,11 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     }
   }
 
-  /**
-   * Get is auth route exist
-   *
-   * @param routePath Route path
-   */
   async function getIsAuthRouteExist(routePath: RouteMap[RouteKey]) {
     // 运行期注册表：能查到（含参数化路径）说明该菜单存在 → 无权限则 403，否则 404
     return isRouteExistByPath(routePath);
   }
 
-  /**
-   * Get selected menu key path
-   *
-   * @param selectedKey Selected menu key
-   */
   function getSelectedMenuKeyPath(selectedKey: string) {
     return getSelectedMenuKeyPathByKey(selectedKey, menus.value);
   }
@@ -283,9 +230,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     await authStore.initUserInfo();
   }
 
-  async function onRouteSwitchWhenNotLoggedIn() {
-    // some global init logic if it does not need to be logged in
-  }
+  async function onRouteSwitchWhenNotLoggedIn() {}
 
   return {
     resetStore,

@@ -14,7 +14,6 @@ export function setupUnplugin(viteEnv: Env.ImportMeta) {
 
   const localIconPath = path.join(process.cwd(), 'src/assets/svg-icon');
 
-  /** The name of the local icon collection */
   const collectionName = VITE_ICON_LOCAL_PREFIX.replace(`${VITE_ICON_PREFIX}-`, '');
 
   const plugins: PluginOption[] = [

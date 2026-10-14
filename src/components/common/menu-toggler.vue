@@ -5,9 +5,7 @@ import { $t } from '@/locales';
 defineOptions({ name: 'MenuToggler' });
 
 interface Props {
-  /** Show collapsed icon */
   collapsed?: boolean;
-  /** Arrow style icon */
   arrowIcon?: boolean;
   zIndex?: number;
 }

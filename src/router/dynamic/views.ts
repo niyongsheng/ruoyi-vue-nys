@@ -1,9 +1,5 @@
-/**
- * 视图组件表（glob 版）
- *
- * 替换 elegant-router 构建期生成的 `src/router/elegant/imports.ts` 里的静态 `views` 表。
- * Key 与 RuoYi 后端 `sys_menu.component` 字段完全一致，例如 'system/user/index'。
- */
+// 替换 elegant-router 构建期生成的 imports.ts；key 与后端 sys_menu.component 完全一致（如 'system/user/index'）
+
 // 布局组件懒加载：静态导入会让整个外壳（header/sider/tab/通知/搜索弹窗）
 // 进入入口 chunk，登录页等无布局路由也要为它买单（实测入口 gzip −49 KB）
 export const layouts: Record<string, any> = {

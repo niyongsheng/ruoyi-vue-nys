@@ -9,9 +9,7 @@ import { $t } from '@/locales';
 defineOptions({ name: 'ContextMenu' });
 
 interface Props {
-  /** ClientX */
   x: number;
-  /** ClientY */
   y: number;
   tabId: string;
   excludeKeys?: App.Global.DropdownKey[];

@@ -1,4 +1,3 @@
-/** Default theme settings */
 export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'auto',
   grayscale: false,
@@ -111,10 +110,6 @@ function createThemeOverride(override: ThemeSettingOverride): Partial<App.Theme.
 }
 
 /**
- * Override theme settings
- *
- * If publish new version, use `overrideThemeSettings` to override certain theme settings
- *
  * 注意：生产环境下主题配置会缓存到 localStorage，改 `themeSettings` 的默认值对老用户无效，
  * 需要在这里覆盖一次（机制见 src/store/modules/theme/shared.ts 的 BUILD_TIME 判断）。
  *

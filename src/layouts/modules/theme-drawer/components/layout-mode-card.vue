@@ -6,16 +6,13 @@ import { $t } from '@/locales';
 defineOptions({ name: 'LayoutModeCard' });
 
 interface Props {
-  /** Layout mode */
   mode: UnionKey.ThemeLayoutMode;
-  /** Disabled */
   disabled?: boolean;
 }
 
 const props = defineProps<Props>();
 
 interface Emits {
-  /** Layout mode change */
   (e: 'update:mode', mode: UnionKey.ThemeLayoutMode): void;
 }
 

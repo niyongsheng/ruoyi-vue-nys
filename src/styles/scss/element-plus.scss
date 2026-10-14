@@ -169,7 +169,10 @@ html.dark:root,
 
 .el-form--inline {
   .el-form-item {
-    .el-input, .el-cascader, .el-select, .el-autocomplete {
+    .el-input,
+    .el-cascader,
+    .el-select,
+    .el-autocomplete {
       width: 200px;
     }
   }

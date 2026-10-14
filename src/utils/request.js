@@ -43,11 +43,9 @@ function maskSensitive(data) {
 }
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
-// 创建axios实例
 const service = axios.create({
-  // axios中请求配置有baseURL选项，表示请求URL公共部分（dev 走 vite 代理，见 build/config/proxy.ts）
+  // dev 走 vite 代理，见 build/config/proxy.ts
   baseURL: import.meta.env.VITE_APP_BASE_API,
-  // 超时
   timeout: 10000
 });
 
@@ -68,12 +66,9 @@ async function handleLogout() {
   }
 }
 
-// request拦截器
 service.interceptors.request.use(
   config => {
-    // 是否需要设置 token
     const isToken = (config.headers || {}).isToken === false;
-    // 是否需要防止数据重复提交
     const isRepeatSubmit = (config.headers || {}).repeatSubmit === false;
     // 间隔时间(ms)，小于此时间视为重复提交
     const interval = (config.headers || {}).interval || 1000;
@@ -84,7 +79,6 @@ service.interceptors.request.use(
     delete config.headers.isToken;
     delete config.headers.repeatSubmit;
     delete config.headers.interval;
-    // get请求映射params参数
     if (config.method === 'get' && config.params) {
       let url = `${config.url}?${tansParams(config.params)}`;
       url = url.slice(0, -1);
@@ -102,7 +96,7 @@ service.interceptors.request.use(
       // 请求数据大小（近似值，仅用于阈值判断；不重复序列化整个 body，
       // 原写法 `Object.keys(JSON.stringify(obj)).length` 会为大 body 构造等长的临时字符键数组）
       const requestSize = String(requestObj.url).length + String(requestObj.data).length;
-      const limitSize = 5 * 1024 * 1024; // 限制存放数据5M
+      const limitSize = 5 * 1024 * 1024;
       if (requestSize >= limitSize) {
         console.warn(`[${config.url}]: ` + '请求数据大小超出允许的5M限制，无法进行防重复提交验证。');
         return config;
@@ -111,9 +105,9 @@ service.interceptors.request.use(
       if (!sessionObj) {
         sessionStg.set('requestObj', requestObj);
       } else {
-        const s_url = sessionObj.url; // 请求地址
-        const s_data = sessionObj.data; // 请求数据
-        const s_time = sessionObj.time; // 请求时间
+        const s_url = sessionObj.url;
+        const s_data = sessionObj.data;
+        const s_time = sessionObj.time;
         if (s_data === requestObj.data && requestObj.time - s_time < interval && s_url === requestObj.url) {
           const message = '数据正在处理，请勿重复提交';
           console.warn(`[${s_url}]: ${message}`);
@@ -130,14 +124,11 @@ service.interceptors.request.use(
   }
 );
 
-// 响应拦截器
 service.interceptors.response.use(
   res => {
-    // 未设置状态码则默认成功状态
     const code = res.data.code || 200;
-    // 获取错误信息
     const msg = errorCode[code] || res.data.msg || errorCode.default;
-    // 二进制数据则直接返回
+    // 二进制数据直接返回，交由 download() 处理
     if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
       return res.data;
     }

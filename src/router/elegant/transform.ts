@@ -5,12 +5,6 @@
 import type { RouteComponent, RouteRecordRaw } from 'vue-router';
 import type { ElegantConstRoute } from '@elegant-router/vue';
 
-/**
- * transform elegant const routes to vue routes
- * @param routes elegant const routes
- * @param layouts layout components
- * @param views view components
- */
 export function transformElegantRoutesToVueRoutes(
   routes: ElegantConstRoute[],
   layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
@@ -19,12 +13,6 @@ export function transformElegantRoutesToVueRoutes(
   return routes.flatMap(route => transformElegantRouteToVueRoute(route, layouts, views));
 }
 
-/**
- * transform elegant route to vue route
- * @param route elegant const route
- * @param layouts layout components
- * @param views view components
- */
 function transformElegantRouteToVueRoute(
   route: ElegantConstRoute,
   layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
@@ -94,7 +82,7 @@ function transformElegantRouteToVueRoute(
 
   const vueRoutes: RouteRecordRaw[] = [];
 
-  // add props: true to route
+  // 参数化路径必须开 props，页面才能以 props 形式拿到路由参数
   if (route.path.includes(':') && !route.props) {
     route.props = true;
   }
@@ -145,7 +133,7 @@ function transformElegantRouteToVueRoute(
     return [];
   }
 
-  // add redirect to child
+  // 有子路由但自身没配 redirect 时，默认重定向到第一个子路由
   if (children?.length && !vueRoute.redirect) {
     vueRoute.redirect = {
       name: children[0].name
@@ -167,11 +155,7 @@ function transformElegantRouteToVueRoute(
   return vueRoutes;
 }
 
-/**
- * 路由 name <-> path 映射改为运行期注册表（后端菜单驱动，编译期不可知）
- *
- * 实现见 src/router/dynamic/registry.ts
- */
+// name <-> path 映射见 src/router/dynamic/registry.ts（后端菜单驱动，编译期不可知）
 export {
   getRouteName,
   getRoutePath,

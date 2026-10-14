@@ -45,12 +45,6 @@ interface ChartHooks {
   onDestroy?: (chart: echarts.ECharts) => void | Promise<void>;
 }
 
-/**
- * use echarts
- *
- * @param optionsFactory echarts options factory function
- * @param darkMode dark mode
- */
 export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: ChartHooks = {}) {
   const scope = effectScope();
 
@@ -82,25 +76,15 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     onDestroy
   } = hooks;
 
-  /**
-   * whether can render chart
-   *
-   * when domRef is ready and initialSize is valid
-   */
   function canRender() {
     return domRef.value && initialSize.width > 0 && initialSize.height > 0;
   }
 
-  /** is chart rendered */
   function isRendered() {
     return Boolean(domRef.value && chart);
   }
 
-  /**
-   * update chart options
-   *
-   * @param callback callback function
-   */
+  /** 图表尚未渲染完成时本方法会静默返回，调用方需自行保证时序 */
   async function updateOptions(callback: (opts: T, optsFactory: () => T) => ECOption = () => chartOptions) {
     if (!isRendered()) return;
 
@@ -136,12 +120,10 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     }
   }
 
-  /** resize chart */
   function resize() {
     chart?.resize();
   }
 
-  /** destroy chart */
   async function destroy() {
     if (!chart) return;
 
@@ -150,36 +132,26 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     chart = null;
   }
 
-  /** change chart theme */
   async function changeTheme() {
     await destroy();
     await render();
     await onUpdated?.(chart!);
   }
 
-  /**
-   * render chart by size
-   *
-   * @param w width
-   * @param h height
-   */
   async function renderChartBySize(w: number, h: number) {
     initialSize.width = w;
     initialSize.height = h;
 
-    // size is abnormal, destroy chart
     if (!canRender()) {
       await destroy();
 
       return;
     }
 
-    // resize chart
     if (isRendered()) {
       resize();
     }
 
-    // render chart
     await render();
 
     if (chart) {

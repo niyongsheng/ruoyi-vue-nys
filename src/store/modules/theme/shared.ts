@@ -6,7 +6,6 @@ import { localStg } from '@/utils/storage';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 
-/** Init theme settings */
 export function initThemeSettings() {
   // 仅开发模式（vite serve，.env.development）不缓存主题：
   // 这样直接改 src/theme/settings.ts 的默认值就能立即生效；
@@ -14,9 +13,6 @@ export function initThemeSettings() {
   const isDev = import.meta.env.MODE === 'development';
 
   if (isDev) return themeSettings;
-
-  // if it is production mode, the theme settings will be cached in localStorage
-  // if want to update theme settings when publish new version, please update `overrideThemeSettings` in `src/theme/settings.ts`
 
   const localSettings = localStg.get('themeSettings');
 
@@ -32,13 +28,6 @@ export function initThemeSettings() {
   return settings;
 }
 
-/**
- * create theme token css vars value by theme settings
- *
- * @param colors Theme colors
- * @param tokens Theme setting tokens
- * @param [recommended=false] Use recommended color. Default is `false`
- */
 export function createThemeToken(
   colors: App.Theme.ThemeColor,
   tokens?: App.Theme.ThemeSetting['tokens'],
@@ -75,12 +64,6 @@ export function createThemeToken(
   };
 }
 
-/**
- * Create theme palette colors
- *
- * @param colors Theme colors
- * @param [recommended=false] Use recommended color. Default is `false`
- */
 function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = false) {
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
   const colorPaletteVar = {} as App.Theme.ThemePaletteColor;
@@ -98,11 +81,6 @@ function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = fa
   return colorPaletteVar;
 }
 
-/**
- * Get css var by tokens
- *
- * @param tokens Theme base tokens
- */
 function getCssVarByTokens(tokens: App.Theme.BaseToken) {
   const styles: string[] = [];
 
@@ -134,11 +112,6 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
   return styleStr;
 }
 
-/**
- * Add theme vars to global
- *
- * @param tokens
- */
 export function addThemeVarsToGlobal(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
   const cssVarStr = getCssVarByTokens(tokens);
   const darkCssVarStr = getCssVarByTokens(darkTokens);
@@ -158,11 +131,6 @@ export function addThemeVarsToGlobal(tokens: App.Theme.BaseToken, darkTokens: Ap
   document.head.appendChild(style);
 }
 
-/**
- * Toggle css dark mode
- *
- * @param darkMode Is dark mode
- */
 export function toggleCssDarkMode(darkMode = false) {
   const { add, remove } = toggleHtmlClass(DARK_CLASS);
 
@@ -173,12 +141,6 @@ export function toggleCssDarkMode(darkMode = false) {
   }
 }
 
-/**
- * Toggle auxiliary color modes
- *
- * @param grayscaleMode
- * @param colourWeakness
- */
 export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness = false) {
   const htmlElement = document.documentElement;
   htmlElement.style.filter = [grayscaleMode ? 'grayscale(100%)' : '', colourWeakness ? 'invert(80%)' : '']

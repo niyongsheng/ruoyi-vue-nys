@@ -32,7 +32,6 @@ export interface RuoYiRouterVo {
 
 const EXTERNAL_LINK_REGEXP = /^https?:\/\//i;
 
-/** 拼接父子路径 */
 function joinPath(parentPath: string, path: string) {
   if (!parentPath) return path;
   if (path.startsWith('/')) return path;
@@ -50,12 +49,6 @@ function transformComponent(component?: string | null) {
   return `view.${component}`;
 }
 
-/**
- * 转换 RuoYi 路由数组
- *
- * @param routes 后端返回的路由数组
- * @param parentPath 父级完整路径（递归用）
- */
 export function transformRuoYiRoutes(routes: RuoYiRouterVo[], parentPath = ''): ElegantConstRoute[] {
   const result: ElegantConstRoute[] = [];
 

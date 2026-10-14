@@ -7,13 +7,9 @@ defineOptions({
 });
 
 interface Props {
-  /** Button class */
   class?: string;
-  /** Iconify icon name */
   icon?: string;
-  /** Tooltip content */
   tooltipContent?: string;
-  /** Tooltip placement */
   tooltipPlacement?: Placement;
   zIndex?: number;
 }

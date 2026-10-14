@@ -5,11 +5,6 @@ import { useRouteStore } from '@/store/modules/route';
 import { getToken } from '@/utils/auth';
 import { getRouteName } from '@/router/elegant/transform';
 
-/**
- * create route guard
- *
- * @param router router instance
- */
 export function createRouteGuard(router: Router) {
   router.beforeEach(async (to, from) => {
     const location = await initRoute(to);
@@ -38,38 +33,28 @@ export function createRouteGuard(router: Router) {
 
     const needLogin = !to.meta.constant;
 
-    // if it is login route when logged in, then switch to the root page
     if (to.name === loginRoute && isLogin) {
       return { name: rootRoute };
     }
 
-    // if the route does not need login, then it is allowed to access directly
     if (!needLogin) {
       return handleRouteSwitch(to, from);
     }
 
-    // the route need login but the user is not logged in, then switch to the login page
     if (!isLogin) {
       return { name: loginRoute, query: { redirect: to.fullPath } };
     }
 
-    // switch route normally
     return handleRouteSwitch(to, from);
   });
 }
 
-/**
- * initialize route
- *
- * @param to to route
- */
 async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw | undefined> {
   const routeStore = useRouteStore();
 
   const notFoundRoute: RouteKey = 'not-found';
   const isNotFoundRoute = to.name === notFoundRoute;
 
-  // if the constant route is not initialized, then initialize the constant route
   if (!routeStore.isInitConstantRoute) {
     await routeStore.initConstantRoute();
 
@@ -89,14 +74,12 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   const isLogin = Boolean(getToken());
 
   if (!isLogin) {
-    // if the user is not logged in and the route is a constant route but not the "not-found" route, then it is allowed to access.
     if (to.meta.constant && !isNotFoundRoute) {
       routeStore.onRouteSwitchWhenNotLoggedIn();
 
       return undefined;
     }
 
-    // if the user is not logged in, then switch to the login page
     const loginRoute: RouteKey = 'login';
     const query = getRouteQueryOfLoginRoute(to, routeStore.routeHome);
 
@@ -109,7 +92,6 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   }
 
   if (!routeStore.isInitAuthRoute) {
-    // initialize the auth route
     await routeStore.initAuthRoute();
 
     // the route is captured by the "not-found" route because the auth route is not initialized
@@ -131,13 +113,11 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
   routeStore.onRouteSwitchWhenLoggedIn();
 
-  // the auth route is initialized
-  // it is not the "not-found" route, then it is allowed to access
   if (!isNotFoundRoute) {
     return undefined;
   }
 
-  // it is captured by the "not-found" route, then check whether the route exists
+  // 被 not-found 捕获：再查一次该路径是否真的存在，存在说明是无权限（403）而非不存在
   const exist = await routeStore.getIsAuthRouteExist(to.path as RoutePath);
   const noPermissionRoute: RouteKey = '403';
 
@@ -153,7 +133,6 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 }
 
 function handleRouteSwitch(to: RouteLocationNormalized, from: RouteLocationNormalized) {
-  // route with href
   if (to.meta.href) {
     // 外链地址来自后端菜单配置：noopener 防止新页面通过 window.opener 反向操纵本管理端标签页
     window.open(to.meta.href, '_blank', 'noopener,noreferrer');

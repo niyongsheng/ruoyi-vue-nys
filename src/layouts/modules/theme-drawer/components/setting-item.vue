@@ -2,7 +2,6 @@
 defineOptions({ name: 'SettingItem' });
 
 interface Props {
-  /** Label */
   label: string;
 }
 

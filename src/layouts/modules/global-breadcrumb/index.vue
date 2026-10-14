@@ -24,7 +24,6 @@ function handleClickMenu(key: RouteKey) {
 
 <template>
   <ElBreadcrumb v-if="themeStore.header.breadcrumb.visible">
-    <!-- define component start: BreadcrumbContent -->
     <DefineBreadcrumbContent v-slot="{ breadcrumb }">
       <div class="i-flex-y-center align-middle">
         <component :is="breadcrumb.icon" v-if="themeStore.header.breadcrumb.showIcon" class="mr-4px text-icon" />
@@ -32,7 +31,6 @@ function handleClickMenu(key: RouteKey) {
       </div>
     </DefineBreadcrumbContent>
 
-    <!-- define component end: BreadcrumbContent -->
     <ElBreadcrumbItem v-for="item in routeStore.breadcrumbs" :key="item.key">
       <ElDropdown v-if="item.options?.length" @command="handleClickMenu">
         <BreadcrumbContent :breadcrumb="item" />

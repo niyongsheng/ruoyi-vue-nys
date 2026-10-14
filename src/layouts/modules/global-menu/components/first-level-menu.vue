@@ -25,13 +25,9 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 interface MixMenuItemProps {
-  /** Menu item label */
   label: App.Global.Menu['label'];
-  /** Menu item icon */
   icon: App.Global.Menu['icon'];
-  /** Active menu item */
   active: boolean;
-  /** Mini size */
   isMini?: boolean;
 }
 const [DefineMixMenuItem, MixMenuItem] = createReusableTemplate<MixMenuItemProps>();
@@ -55,7 +51,6 @@ function toggleSiderCollapse() {
 </script>
 
 <template>
-  <!-- define component: MixMenuItem -->
   <DefineMixMenuItem v-slot="{ label, icon, active, isMini }">
     <div
       class="mx-4px mb-6px flex-col-center cursor-pointer rounded-8px bg-transparent px-4px py-8px transition-300 hover:bg-[rgb(0,0,0,0.08)]"
@@ -74,7 +69,6 @@ function toggleSiderCollapse() {
       </p>
     </div>
   </DefineMixMenuItem>
-  <!-- define component end: MixMenuItem -->
 
   <div class="h-full flex-col-stretch flex-1-hidden">
     <slot></slot>
