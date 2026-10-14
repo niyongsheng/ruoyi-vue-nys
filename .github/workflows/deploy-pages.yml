@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GITHUB_TOKEN 的最小权限：读代码、写 Pages、签发 OIDC
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只跑一个部署；新的推送取消进行中的旧任务
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  # 项目站点固定为 /<repo>/。若改用自定义域名或 <user>.github.io 根站点，把这里改成 /
+  VITE_BASE_URL: /${{ github.event.repository.name }}/
+  # Pages 是纯静态托管，没有 nginx 反代 /prod-api，必须写后端绝对地址。
+  # 想换后端时改仓库 Variables（Settings → Secrets and variables → Actions → Variables）里的
+  # VITE_APP_BASE_API，不用动这个文件。
+  VITE_APP_BASE_API: ${{ vars.VITE_APP_BASE_API || 'https://vue.ruoyi.vip/prod-api' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build:prod
+
+      - name: Prepare Pages artifacts
+        run: |
+          # SPA 回退：路由是 history 模式，Pages 没有 rewrite，
+          # 刷新 /system/user 这类深链会 404。复制一份 404.html，让 SPA 仍能启动并按 URL 路由。
+          cp dist/index.html dist/404.html
+          # Vite 会产出 assets/_plugin-vue_export-helper-*.js 这类下划线开头的文件。
+          # 当前用 artifact 部署不跑 Jekyll，但留着这个标记可以防止日后改用分支部署时被过滤掉。
+          touch dist/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
