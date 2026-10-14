@@ -178,7 +178,7 @@ onMounted(() => {
                   </template>
                 </ElInput>
                 <div
-                  class="h-full shrink-0 cursor-pointer overflow-hidden rd-4px bg-[var(--el-fill-color-light)]"
+                  class="h-[var(--el-component-size-large)] shrink-0 cursor-pointer overflow-hidden rd-4px bg-[var(--el-fill-color-light)]"
                   :title="$t('page.login.common.refreshCode')"
                   @click="getCode"
                 >
