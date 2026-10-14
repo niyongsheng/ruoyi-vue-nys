@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import type { VNode } from 'vue';
 import { useRoute } from 'vue-router';
+import { onKeyStroke } from '@vueuse/core';
 import { router } from '@/router';
 import { useAuthStore } from '@/store/modules/auth';
 import { useLockStore } from '@/store/modules/lock';
@@ -52,6 +53,15 @@ function lockScreen() {
   lockStore.lockScreen(route.fullPath);
   router.push('/lock');
 }
+
+/** Ctrl/⌘ + L 锁定屏幕；已锁定时不重复触发 */
+onKeyStroke('l', event => {
+  if (!event.ctrlKey && !event.metaKey) return;
+  if (lockStore.isLock) return;
+
+  event.preventDefault();
+  lockScreen();
+});
 
 function logout() {
   window.$messageBox
