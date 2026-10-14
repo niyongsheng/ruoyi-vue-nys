@@ -2,10 +2,10 @@
 	<img alt="logo" src="./src/assets/logo/logo.svg">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi VUE NYS</h1>
-<h4 align="center">Frontend admin framework adapted to RuoYi backend API</h4>
+<h4 align="center">Frontend admin framework adapted to RuoYi backend API.</h4>
 <p align="center">
 	<a href="https://gitee.com/y_project/RuoYi-Vue"><img src="https://img.shields.io/badge/RuoYi-v3.9.2-brightgreen.svg"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
+	<a href="https://github.com/niyongsheng/ruoyi-vue-nys/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
 </p>
 
 [![爱发电](https://img.shields.io/badge/爱发电-Afdian-946ce6?style=for-the-badge&logo=github&logoColor=white)](https://ifdian.net/a/nico2026)
@@ -16,10 +16,10 @@
 > [RuoYi（若依）](https://ruoyi.vip) 是国内最受欢迎的开源后台管理框架之一：权限体系完善、代码简洁开箱即用、文档与社区成熟。  
 官方前端 `RuoYi-Vue` 的观感稍显陈旧。**本项目适配若依后端 API，结合更现代的前端框架** —— 支持暗黑模式、主题定制、多种布局、中英双语、响应式适配，且若依原有的页面、指令与全局方法均可直接使用，业务代码零改动。
 
-#### 后端仓库
+#### 后端仓库：
 | GitHub | Gitee |
 | --- | --- |
-| [RuoYi-Vue-fast](https://github.com/yangzongzhuan/RuoYi-Vue-fast)（单模块版，推荐） | [-]() |
+| [RuoYi-Vue-fast](https://github.com/yangzongzhuan/RuoYi-Vue-fast) | [-]() |
 | [RuoYi-Vue](https://github.com/yangzongzhuan/RuoYi-Vue) | [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) |
 
 ## 技术栈
@@ -33,19 +33,12 @@
 
 ```bash
 pnpm install
-pnpm dev           # 开发（默认 9527 端口，接口代理到 http://vue.ruoyi.vip/prod-api）
+pnpm dev           # 开发（默认 9527 端口）
 pnpm typecheck     # 类型检查
 pnpm lint          # 代码检查
 
 pnpm build:prod    # 构建（生产，接口前缀 /prod-api）→ dist/
 pnpm build:stage   # 构建（预发布，接口前缀 /stage-api）→ dist/
-```
-
-开发环境默认代理到若依官方演示站（`admin` / `admin123`，需填验证码）。
-联调本地后端时新建 `.env.development.local` 覆盖即可，无需改动已入库的配置：
-
-```ini
-VITE_PROXY_TARGET = http://localhost:8080
 ```
 
 ## 效果图
@@ -72,9 +65,9 @@ VITE_PROXY_TARGET = http://localhost:8080
 ## 联系我
 
 > [!TIP]  
-> 如果您需要更完善的前后端框架(service+admin+app)欢迎关注[#NYS_ADMIN](https://www.bilibili.com/video/BV1zrpi68Eac)
+> 如果您需要开箱即用的前后端框架(service+admin+app)欢迎关注 [#NYS](https://www.bilibili.com/video/BV1zrpi68Eac)
 
 + Email: [niyongsheng@outlook.com](mailto:niyongsheng@outlook.com?subject=BusinessConsulting) 
 + X: [@niyongsheng](https://x.com/niyongsheng)
 + QQ: 2196749319
-+ WeChat: looplooptech
++ 微信: looplooptech
